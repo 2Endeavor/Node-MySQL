@@ -38,13 +38,10 @@ function promptCustomerForItems(inventory){
         }
       ])
       .then(function(inquirerResponse){
-        var userResponse = parseInt(inquirerResponse.choice);
-        console.log(userResponse);
-        var product = checkInventory(userResponse,inventory);
-        console.log("line 43 selection and product");
+        var userResponse = parseInt(inquirerResponse.choice);      
+        var product = checkInventory(userResponse,inventory);     
         var selection = product.item_id;
-        console.log(selection, product);
-        //console.log(product.item_id);
+         
         if (product){
           quantityRequested(product, selection);
 
@@ -53,10 +50,10 @@ function promptCustomerForItems(inventory){
 }
 
 
+
 function checkInventory(choiceId,inventory){
   for(var i=0; i<inventory.length; i++){
     if ( choiceId===inventory[i].item_id){
-      console.log("This is in the DB:"+ choiceId);
       return inventory[i]
     }
   }
@@ -77,28 +74,21 @@ function quantityRequested(amtNeeded){
     }
   ])
   .then(function(inquirerResponse){
-    // quantity is the amount the user is requesting
-    //amtNeeded is the information from the database regarding the item requested
+    
   
     var quantity = parseInt(inquirerResponse.quantity);
     var curStockLevel = parseInt(amtNeeded.stock_quantity);
     var itemToPurchase = amtNeeded.item_id;
     var itemPrice = parseInt(amtNeeded.price);
     var prodName = (amtNeeded.product_name);
-    // console.log("the name of the product is " + prodName);
-    // console.log("The price of the item is" + itemPrice)
-    // console.log ("I wish to purchase " + itemToPurchase);
-
+    
     if(quantity > curStockLevel){
       console.log("sorry we don't have enough. Please make another selection");
       afterConnection();
-
     }
     else{
-
       
       debtInventory(itemToPurchase, curStockLevel, quantity,itemPrice, prodName);
-     // console.log(itemToPurchase);
       
     }
   })
@@ -121,7 +111,6 @@ function debtInventory(reqProduct, curStockLevel, quantityReq, itemPrice, prodNa
         item_id: reqProduct
         
       }
-
 
     ],
     function(err){
@@ -147,4 +136,3 @@ function updateCustomer(prodName, quantityReq, itemPrice){
   console.log("Total Sale:-----------------$ " + totalSale);
   
 }
-//connection.end();
