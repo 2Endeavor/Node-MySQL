@@ -26,6 +26,7 @@ function afterConnection(){
 }
 
 
+
 function promptCustomerForItems(inventory){
   inquirer
       .prompt([
@@ -48,14 +49,6 @@ function promptCustomerForItems(inventory){
           quantityRequested(product, selection);
 
         }
-        // var query = connection.query("SELECT stock_quantity from products WHERE product_name ='bike'", function(err, res){
-        //   if (err)throw err;
-        //   console.log(query);
-        // })
-         //console.log(inquirerResponse.item_id, inquirerResponse.quantity);
-         // console.log(item_id);
-          //connection.end();
-
       })
 }
 
@@ -70,6 +63,9 @@ function checkInventory(choiceId,inventory){
   return null;
 }
 
+
+
+// Here we find out how many items the customer needs
 function quantityRequested(amtNeeded){
   
   inquirer
@@ -87,7 +83,11 @@ function quantityRequested(amtNeeded){
     var quantity = parseInt(inquirerResponse.quantity);
     var curStockLevel = parseInt(amtNeeded.stock_quantity);
     var itemToPurchase = amtNeeded.item_id;
-    console.log ("I wish to purchase " + itemToPurchase);
+    var itemPrice = parseInt(amtNeeded.price);
+    var prodName = (amtNeeded.product_name);
+    // console.log("the name of the product is " + prodName);
+    // console.log("The price of the item is" + itemPrice)
+    // console.log ("I wish to purchase " + itemToPurchase);
 
     if(quantity > curStockLevel){
       console.log("sorry we don't have enough. Please make another selection");
@@ -96,15 +96,19 @@ function quantityRequested(amtNeeded){
     }
     else{
 
-      // Here we are subtracting the requested amount from the to level
-      newStockLvl = (curStockLevel-quantity);
-      debtInventory(itemToPurchase, newStockLvl);
+      
+      debtInventory(itemToPurchase, curStockLevel, quantity,itemPrice, prodName);
+     // console.log(itemToPurchase);
       
     }
   })
 }
-//Here we are passing in the product we wish to purchase and the new stock level
-function debtInventory(reqProduct, newStockLvl){
+
+
+
+//Here we are updating mysql. We are passing in the product we wish to purchase and the new stock level
+function debtInventory(reqProduct, curStockLevel, quantityReq, itemPrice, prodName){
+  newStockLvl = (curStockLevel-quantityReq);
 
   connection.query(
     "UPDATE products SET ? WHERE ?",
@@ -122,12 +126,25 @@ function debtInventory(reqProduct, newStockLvl){
     ],
     function(err){
       if (err) throw err;
-      //console.log(res.affectedRows + "Product updated")
-    }
-    
+      updateCustomer(prodName, quantityReq, itemPrice)
+      afterConnection();
+      
+    }  
     );
-    afterConnection();
-    
-    
+}
+
+
+
+
+// Here we are updating the customer and letting them know their final cost
+function updateCustomer(prodName, quantityReq, itemPrice){
+  var totalSale = quantityReq*itemPrice;
+  
+  
+  console.log("Thank you for shopping with us!");
+  console.log(prodName + "------------------$ " +itemPrice);
+  console.log("Quantity purchased: " + quantityReq);
+  console.log("Total Sale:-----------------$ " + totalSale);
   
 }
+//connection.end();
