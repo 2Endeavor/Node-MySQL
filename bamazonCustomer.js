@@ -1,4 +1,3 @@
-
 var mysql = require("mysql");
 var inquirer = require("inquirer");
 var connection = mysql.createConnection({
@@ -44,6 +43,8 @@ function promptCustomerForItems(inventory){
          
         if (product){
           quantityRequested(product, selection);
+
+          
 
         }
       })
