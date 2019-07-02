@@ -1,7 +1,7 @@
 {
   "name": "node-mysql",
   "version": "1.0.0",
-  "description": "",
+  "description": "To work with this app, the following are required:",
   "main": "bamazonCustomer.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -19,5 +19,7 @@
   "dependencies": {
     "inquirer": "^6.4.1",
     "mysql": "^2.17.1"
-  }
+  },
+  "devDependencies": {},
+  "keywords": []
 }
