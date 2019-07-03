@@ -143,7 +143,7 @@ function increaseInventory(item, dept, price, quant){
 
   connection.query(
     // "UPDATE products",
-    "INSERT INTO products (product_name, department_name, price, Stock_quantity) VALUES SET item, dept, price,quant",
+    "INSERT INTO products (product_name, department_name, price, Stock_quantity) VALUES SET item, dept, price,quant"
     
     // [
     //   {

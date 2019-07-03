@@ -28,6 +28,9 @@ Once the selection and quantity required have been provided by the customer, the
 ![Item not Available](./images/tryAgain.jpg)
 
 
+## Image 2 Insufficent Stock On-Hand
+![Item not Available](./images/outofstock.jpg)
+
 
 ## Image 3 Completed Sale
 ![Completed Sale](./images/completedSale.jpg)
