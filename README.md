@@ -25,7 +25,7 @@ Once the selection and quantity required have been provided by the customer, the
 
 
 ## Image 2 Insufficent Stock On-Hand
-![Item not available](./images/tryAgain.jpg)
+![Item not available](./images/outofStock.jpg)
 
 
 
