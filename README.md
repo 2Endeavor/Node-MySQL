@@ -22,12 +22,6 @@ Once the selection and quantity required have been provided by the customer, the
 ![Bamazon Inventory](./images/inventory.jpg)
 
 
-
-
-## Image 2 Insufficent Stock On-Hand
-![Item not available](./images/tryAgain.jpg)
-
-
 ## Image 2 Insufficent Stock On-Hand
 ![Item not Available](./images/outofstock.jpg)
 
