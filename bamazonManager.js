@@ -94,31 +94,88 @@ function addToInventory (){
   inquirer
   .prompt([
     {
-      type: "rawlist",
-      message: "Select One",
-      choices: [
-        "Manager's View Products for Sale",
-        "View Low Inventory",
-        "Add to Inventory",
-        "Add New Product"
-      ],
-      name: "managerActions"
+      type: "input",
+      message: "Product Name",
+      name: "product_name"
+    },
+
+    {
+      type: "input",
+      message: "Department",
+      name: "department_name"
+    },
+
+    {
+      type: "input",
+      message: "Price",
+      name: "price"
+    },
+
+    {
+      type: "input",
+      message: "Quantity",
+      name: "stock_quantity"
     }
+
   ])
   .then(function(inquirerResponse) {
-    // var selection = (inquirerResponse.choice);
+
+    
+      var newItem = inquirerResponse.product_name;
+      var newItemDept = inquirerResponse.department_name;
+      var newItemPrice = inquirerResponse.price;
+      var newItemQuant = inquirerResponse.stock_quantity;
+      // console.log( newItem, newItemDept, newItemPrice, newItemQuant);
+      // connection.query("SELECT * FROM products WHERE stock_quantity <= 5") 
+
+      increaseInventory(newItem, newItemDept, newItemPrice, newItemQuant);
+  }
+)};
 
 
 
 
-  connection.query("SELECT * FROM products WHERE stock_quantity <= 5", function(err, res) {
-    if (err) throw err;
-   console.table(res);
-  console.log("this is the function that adds to the inventory");
+
+
+
+// Add the new product to the database
+function increaseInventory(item, dept, price, quant){
+
+  connection.query(
+    // "UPDATE products",
+    "INSERT INTO products (product_name, department_name, price, Stock_quantity) VALUES SET item, dept, price,quant",
+    
+    // [
+    //   {
+    //     product_name: item,
+    //   },
+    //   {
+    //     department_name: dept,
+    //   },
+    //   {
+    //     price: 40,
+    //   },
+    //   {
+    //     stock_quantity: quant
+    //   }
+    // ],
+    
+    function(err){
+      if (err) throw err;
+      //updateCustomer(prodName, quantityReq, itemPrice)
+      console.log(item, dept, price, quant);
+      afterConnection();
+      
+    }  
+    );
+
 }
 
-
+  
+      
+      
+ 
 // TODO: Create Function Add New Product: Allows manager to add a new product to the database
 function addNewProducts(){
   console.log("this is the function that add new products")
-}
+};
