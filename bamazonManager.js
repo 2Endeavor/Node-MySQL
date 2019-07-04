@@ -32,7 +32,7 @@ function afterConnection() {
   });
 }
 
-// TODO: List menu options: View Products for Sale; View Low Inventory; Add to Inventory; Add New Product
+//List menu options: View Products for Sale; View Low Inventory; Add to Inventory; Add New Product
 function promptManagerForRequest(inventory) {
   inquirer
     .prompt([
@@ -134,48 +134,41 @@ function addToInventory (){
 
 
 
+// TODO: Create Function Add New Product: Allows manager to add a new product to the database
+function addToInventory(){
+  console.log("this is the function that add new products")
+};
+
+
+
+
 
 
 
 
 // Add the new product to the database
-function increaseInventory(item, dept, price, quant){
+function addNewProducts(item, dept, price, quant){
 
-  connection.query(
-    // "UPDATE products",
-    "INSERT INTO products (product_name, department_name, price, Stock_quantity) VALUES SET item, dept, price,quant"
-    
-    // [
-    //   {
-    //     product_name: item,
-    //   },
-    //   {
-    //     department_name: dept,
-    //   },
-    //   {
-    //     price: 40,
-    //   },
-    //   {
-    //     stock_quantity: quant
-    //   }
-    // ],
-    
+ var query = connection.query(
+   "INSERT INTO products SET  ?",  
+   {
+     product_name: item,
+     department_name: dept,
+     price: price,
+     stock_quantity: quant
+   },  
     function(err){
-      if (err) throw err;
-      //updateCustomer(prodName, quantityReq, itemPrice)
-      console.log(item, dept, price, quant);
-      afterConnection();
-      
-    }  
-    );
-
+        if (err) throw err;
+      //   //updateCustomer(prodName, quantityReq, itemPrice)
+      //   console.log(item, dept, price, quant);
+    // });
+      afterConnection();      
+  }  
+);
 }
+
 
   
       
       
  
-// TODO: Create Function Add New Product: Allows manager to add a new product to the database
-function addNewProducts(){
-  console.log("this is the function that add new products")
-};
